@@ -1,9 +1,10 @@
 #pragma once
 
 #include <Arduino.h>
+#include <vector>
 
-#include "Display/IDisplay.h"
-#include "Measure/ValuesForPeriod.h"
+#include "Display/IDisplayAdapter.h"
+#include "Measure/BatchAnalogReader.h"
 
 namespace MuzicAnalyser
 {
@@ -19,17 +20,21 @@ namespace MuzicAnalyser
             int16_t rightChannelCurrentValue;
         };
 
-        VuMeter(ValuesForPeriod* measurer);
+        struct VuMeterMeasuringSettings
+        {
+            uint16_t numberOfMeasures = 100;
+            uint16_t normalizationRange = 1000;
+            uint16_t lowPass = 20;
+        };
+
+        VuMeter(BatchAnalogReader* measurer);
         ~VuMeter();
 
-        void MeasureAndDisplay(IDisplay<VuMeterDisplayData>* displayDriver);
+        void Measure(uint16_t numberOfMeasures);
+        void Draw(IDisplayAdapter* display, uint16_t lowPass, uint16_t maxWidth);
 
     private: 
-        static const uint16_t NUMBER_OF_MEASURES = 100;
-        static const uint32_t ANALOG_READ_MAX_VALUE = 1023;
-        static const uint32_t NORMALIZATION_RANGE = 1000;
-        static const int16_t LOW_PASS = 20;
-
-        ValuesForPeriod* measurer;
+        BatchAnalogReader* measurer;
+        vector<int16_t> currentValues;
     };
 }

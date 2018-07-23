@@ -1,11 +1,12 @@
 #include "app.h"
 
-MuzicAnalyser::App app = MuzicAnalyser::App();
+MuzicAnalyser::App* app;
 
 void setup() {
-    app.Setup();
+    app = MuzicAnalyser::App::GetInstance();
+    app->Setup();
 }
 
 void loop() {
-    app.Run();
+    app->Run();
 }

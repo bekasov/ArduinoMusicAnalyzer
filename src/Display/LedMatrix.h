@@ -9,7 +9,7 @@
 
 namespace MuzicAnalyser { namespace Display 
 {
-    class LedMatrix : public IDisplay<VuMeter::VuMeterDisplayData>
+    class LedMatrix final : public IDisplay<VuMeter::VuMeterDisplayData>
     {
     private:
         Max72xxPanel* matrix;
@@ -18,7 +18,7 @@ namespace MuzicAnalyser { namespace Display
         LedMatrix(byte brightness = 4, byte verticalDisplays = 1, byte horizontalDisplays = 1, byte pinCs = 10);
         ~LedMatrix();
 
-        void OutValues(const VuMeter::VuMeterDisplayData* data,  int valuesMax);
+        void Display(const VuMeter::VuMeterDisplayData* data) override;
     };
 
 } }

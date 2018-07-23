@@ -17,9 +17,11 @@ namespace MuzicAnalyser { namespace Display
         }
     }
 
-    void LedMatrix::OutValues(const VuMeter::VuMeterDisplayData* data, int valuesMax)
+    void LedMatrix::Display(const VuMeter::VuMeterDisplayData* data)
     {
         this->matrix->fillScreen(LOW);
+
+        auto valuesMax = 1000;
 
         long leftValue = abs(map(data->leftChannelCurrentValue, 0, valuesMax, 0, 8));
         long rightValue = abs(map(data->rightChannelCurrentValue, 0, valuesMax, 0, 8));

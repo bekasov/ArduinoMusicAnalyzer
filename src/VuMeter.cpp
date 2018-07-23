@@ -1,27 +1,33 @@
-#include <vector>
-
 #include "VuMeter.h"
 
 namespace MuzicAnalyser
 {
     using namespace std;
 
-    VuMeter::VuMeter(ValuesForPeriod* measurer)
+    VuMeter::VuMeter(BatchAnalogReader* measurer)
     {
         this->measurer = measurer;
     }
 
-    void VuMeter::MeasureAndDisplay(IDisplay<VuMeterDisplayData>* displayDriver)
+    void VuMeter::Measure(uint16_t numberOfMeasures)
     {
-        vector<int16_t> currentValues = this->measurer->GetCurrent(this->NUMBER_OF_MEASURES);
-        for (int16_t& currentValue : currentValues)
+        // this->currentValues.clear();
+        this->currentValues = this->measurer->GetMaxForPeriod(numberOfMeasures);
+    }
+
+    void VuMeter::Draw(IDisplayAdapter* display, uint16_t lowPass, uint16_t maxWidth)
+    {
+        for (int16_t& currentValue : this->currentValues)
         {
-            currentValue = abs(map(currentValue, this->LOW_PASS, this->ANALOG_READ_MAX_VALUE, 0, this->NORMALIZATION_RANGE));
+            currentValue = abs(map(currentValue, lowPass, this->measurer->ANALOG_READ_MAX_VALUE, 0, maxWidth));
         }
 
-        VuMeterDisplayData dataToDisplay = { .leftChannelCurrentValue = currentValues[0], .rightChannelCurrentValue = currentValues[1] };
+        // display->Clear();
 
-        displayDriver->Display(&dataToDisplay, this->NORMALIZATION_RANGE);
+        display->DrawRectangle(Display::Point { .x = 5, .y = 0 }, Display::Point { .x = 6, .y = this->currentValues[0] });
+        display->DrawRectangle(Display::Point { .x = 1, .y = 0 }, Display::Point { .x = 2, .y = this->currentValues[1] });
+
+        // display->FlushBuffer();
     }
 
     VuMeter::~VuMeter()

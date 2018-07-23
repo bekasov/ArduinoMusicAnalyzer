@@ -1,4 +1,5 @@
 #pragma once
+
 #include <Arduino.h>
 #include <vector>
 #include <wiring_private.h>
@@ -8,16 +9,16 @@ namespace MuzicAnalyser { namespace Measure
 {
     using namespace std;
 
-    class ValuesForPeriod final
+    class BatchAnalogReader final
     {
+    public:
+        static const uint32_t ANALOG_READ_MAX_VALUE = 1023;
+
     private:
         vector<uint8_t> analogInputs;
-        // binary_function<long,long,long> comparer;
-        // function<long(long,long)> comparer;
-        // long (*comparer)(long, long);
 
     public:
-        ValuesForPeriod(vector<uint8_t> analogInputs) 
+        BatchAnalogReader(vector<uint8_t> analogInputs) 
         {
             this->analogInputs = analogInputs;
 
@@ -27,6 +28,6 @@ namespace MuzicAnalyser { namespace Measure
             analogReference(INTERNAL); //  EXTERNAL
         }
 
-        vector<int16_t> GetCurrent(uint16_t numberOfMeasures);
+        vector<int16_t> GetMaxForPeriod(uint16_t numberOfMeasures);
     };
 } }

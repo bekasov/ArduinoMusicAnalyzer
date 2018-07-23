@@ -16,6 +16,14 @@
         "deque": "cpp",
         "list": "cpp",
         "initializer_list": "cpp",
-        "cstdlib": "cpp"
+        "cstdlib": "cpp",
+        "ios": "cpp",
+        "iterator": "cpp",
+        "type_traits": "cpp",
+        "associative_base": "cpp",
+        "cmath": "cpp",
+        "complex": "cpp",
+        "bitset": "cpp",
+        "sstream": "cpp"
     }
 }
