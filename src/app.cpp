@@ -1,79 +1,41 @@
 #include <Arduino.h>
-#include <wiring_private.h>
+#include <vector>
 
 #include "app.h"
 
-
-namespace Piotest 
+namespace MuzicAnalyser 
 {
-    App::App()
-    {
-    }
-
-    App::~App()
-    {
-        if (this->Mc != nullptr)
-        {
-            delete this->Mc;
-        }
-    }
-
     void App::Setup()
     {
-        this->Mc = new Matrix();
-        
-        sbi(ADCSRA, ADPS2);
-        cbi(ADCSRA, ADPS1);
-        sbi(ADCSRA, ADPS0);
+        // this->display = new LedMatrix();
 
-        analogReference(INTERNAL); //  EXTERNAL
+        unsigned char LEFT_CHANNEL = A1;
+        unsigned char RIGHT_CHANNEL = A2;
+        std::vector<unsigned char> analogInputs = { LEFT_CHANNEL, RIGHT_CHANNEL };
+        this->measurer = new ValuesForPeriod(analogInputs);
     }
 
     void App::Run()
     {
-        int LOW_PASS = 20;
-        int ANALOG_READ_MAX_VALUE = 1023;
-        int NORMALIZATION_BOUND = 1000;
-        byte NUMBER_OF_MEASURES = 100;
+        // int LOW_PASS = 20;
+        // int ANALOG_READ_MAX_VALUE = 1023;
+        // int NORMALIZATION_BOUND = 1000;
+        // byte NUMBER_OF_MEASURES = 100;
 
-        int LEFT_CHANNEL = A1;
-        int RIGHT_CHANNEL = A2;
+        // std::vector<long> currentValues = this->measurer->GetCurrent(NUMBER_OF_MEASURES);
+        // for (long& currentValue : currentValues)
+        // {
+        //     currentValue = abs(map(currentValue, LOW_PASS, ANALOG_READ_MAX_VALUE, 0, NORMALIZATION_BOUND));
+        // }
 
-        long leftChannelCurrent = 0;
-        long rightChannelCurrent = 0;
+        // this->display->OutValues(currentValues[0], currentValues[1], NORMALIZATION_BOUND);
+    }
 
-        for (byte i = 0; i < NUMBER_OF_MEASURES; i++)
+    App::~App()
+    {
+        if (this->display != nullptr)
         {
-            leftChannelCurrent = max(analogRead(LEFT_CHANNEL), leftChannelCurrent);
-            rightChannelCurrent = max(analogRead(RIGHT_CHANNEL), rightChannelCurrent);
+            delete this->display;
         }
-
-        leftChannelCurrent = abs(map(leftChannelCurrent, LOW_PASS, ANALOG_READ_MAX_VALUE, 0, NORMALIZATION_BOUND)); 
-        rightChannelCurrent = abs(map(rightChannelCurrent, LOW_PASS, ANALOG_READ_MAX_VALUE, 0, NORMALIZATION_BOUND)); 
-
-        this->Mc->OutValues(leftChannelCurrent, rightChannelCurrent, NORMALIZATION_BOUND);
     }
 }
-
-/*
-        //Serial.begin(9600);
-
-        // sbi(ADCSRA, ADPS2);
-        // cbi(ADCSRA, ADPS1);
-        // sbi(ADCSRA, ADPS0);
-
-        // constrain(RsoundLevel, 0, 500);
-        // Serial.print("leftChannel: ");
-        // Serial.print(leftChannelCurrent);
-        // Serial.print(" -- ");
-        // Serial.print("rightChannel: ");
-        // Serial.print(rightChannelCurrent);
-
-        // Serial.println(" ----------------------------------");
-
-        // delay(200);
-
-        // this->Mc->Run();
-
- * 
- */

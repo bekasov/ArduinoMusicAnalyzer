@@ -1,24 +1,24 @@
-#ifndef __PIOTEST_APP_H__
-#define __PIOTEST_APP_H__
+#pragma once
 
-#include <Display/Matrix.h>
+#include "Display/LedMatrix.h"
+#include "Measure/ValuesForPeriod.h"
 
-namespace Piotest 
+
+namespace MuzicAnalyser 
 {
-    using namespace VuMeter::Display;
+    using namespace Display;
+    using namespace Measure;
 
     class App final 
     {
     private: 
-        Matrix* Mc;
+        LedMatrix* display;
+        ValuesForPeriod* measurer;
 
     public:
-        App();
         ~App();
 
         void Setup();
         void Run();
     };
 }
-
-#endif

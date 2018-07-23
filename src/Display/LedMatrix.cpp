@@ -1,14 +1,15 @@
-#include "Matrix.h"
+#include <Arduino.h>
+#include "LedMatrix.h"
 
-namespace VuMeter { namespace Display 
+namespace MuzicAnalyser { namespace Display 
 { 
-    Matrix::Matrix(byte brightness, byte verticalDisplays, byte horizontalDisplays, byte pinCs)
+    LedMatrix::LedMatrix(byte brightness, byte verticalDisplays, byte horizontalDisplays, byte pinCs)
     {
         this->matrix = new Max72xxPanel(pinCs, horizontalDisplays, verticalDisplays);
         this->matrix->setIntensity(brightness);
     }
 
-    Matrix::~Matrix()
+    LedMatrix::~LedMatrix()
     {
         if (this->matrix != nullptr)
         {
@@ -16,12 +17,12 @@ namespace VuMeter { namespace Display
         }
     }
 
-    void Matrix::OutValues(int leftValue, int rightValue, int valuesMax)
+    void LedMatrix::OutValues(const VuMeter::VuMeterDisplayData* data, int valuesMax)
     {
         this->matrix->fillScreen(LOW);
 
-        leftValue = abs(map(leftValue, 0, valuesMax, 0, 8));
-        rightValue = abs(map(rightValue, 0, valuesMax, 0, 8));
+        long leftValue = abs(map(data->leftChannelCurrentValue, 0, valuesMax, 0, 8));
+        long rightValue = abs(map(data->rightChannelCurrentValue, 0, valuesMax, 0, 8));
 
         this->matrix->drawLine(6, 0, 6, leftValue, HIGH);
         this->matrix->drawLine(5, 0, 5, leftValue, HIGH);

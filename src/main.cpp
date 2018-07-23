@@ -1,7 +1,6 @@
-#include <Arduino.h>
 #include "app.h"
 
-Piotest::App app = Piotest::App();
+MuzicAnalyser::App app = MuzicAnalyser::App();
 
 void setup() {
     app.Setup();

@@ -6,5 +6,16 @@
     "terminal.integrated.env.linux": {
         "PATH": "/home/coop/.platformio/penv/bin:/home/coop/.platformio/penv:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/home/coop/.dotnet/tools:/home/coop/applications/android-sdk/platform-tools/:/home/coop/.local/bin:/home/coop/bin:/home/coop/.dotnet/tools:/home/coop/applications/android-sdk/platform-tools/:/home/coop/.local/bin:/home/coop/bin",
         "PLATFORMIO_CALLER": "vscode"
+    },
+    "files.associations": {
+        "algorithm": "cpp",
+        "limits": "cpp",
+        "valarray": "cpp",
+        "vector": "cpp",
+        "functional": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "initializer_list": "cpp",
+        "cstdlib": "cpp"
     }
 }
