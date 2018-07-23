@@ -1,16 +1,16 @@
 #ifndef __PIOTEST_APP_H__
 #define __PIOTEST_APP_H__
 
-#include <MatrixControl.h>
+#include <Display/Matrix.h>
 
 namespace Piotest 
 {
-    using namespace ::Lib::MatrixControl;
+    using namespace VuMeter::Display;
 
     class App final 
     {
     private: 
-        MatrixControl* Mc;
+        Matrix* Mc;
 
     public:
         App();
