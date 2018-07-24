@@ -1,5 +1,10 @@
 # ArduinoMusicAnalyzer
 Learn Arduino
 
-VS Code + Platformio
-Windows 10x64 / Fedora 28
+## Build order
+
+git clone
+git submodule init
+git submodule update
+
+use VS Code + Platformio

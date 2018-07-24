@@ -1,12 +1,34 @@
+#include <Arduino.h>
 #include "app.h"
 
-MuzicAnalyser::App* app;
+using namespace MuzicAnalyser;
 
-void setup() {
-    app = MuzicAnalyser::App::GetInstance();
-    app->Setup();
+App::HardwareSettings settings 
+{ 
+    .leftChannel = A1, 
+    .rightChannel = A2,
+    .brightness = 4,
+    .verticalDisplays = 1,
+    .horizontalDisplays = 1,
+    .pinCs = 10
+};
+
+VuMeter::VuMeterSettings vuMeterSettings
+{
+    .numberOfMeasures = 100,
+    .lowPass = 20,
+    .mono = false
+};
+
+App* app;
+
+void setup() 
+{
+    app = App::GetInstance();
+    app->Setup(&settings, &vuMeterSettings);
 }
 
-void loop() {
+void loop() 
+{
     app->Run();
 }

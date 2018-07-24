@@ -1,40 +1,49 @@
 #include "VuMeter.h"
+#include "Display/IVuMeterDisplay.h"
 
 namespace MuzicAnalyser
 {
     using namespace std;
 
-    VuMeter::VuMeter(BatchAnalogReader* measurer)
+    VuMeter::VuMeter(BatchAnalogReader* measurer, VuMeterSettings* settings)
     {
         this->measurer = measurer;
+        this->settings = settings;
     }
 
-    void VuMeter::Measure(uint16_t numberOfMeasures)
+    void VuMeter::MeasureAndDraw()
     {
-        // this->currentValues.clear();
-        this->currentValues = this->measurer->GetMaxForPeriod(numberOfMeasures);
-    }
+        this->currentValues = this->measurer->GetMaxForPeriod(this->settings->numberOfMeasures);
 
-    void VuMeter::Draw(IDisplayAdapter* display, uint16_t lowPass, uint16_t maxWidth)
-    {
-        for (int16_t& currentValue : this->currentValues)
+        for (IVuMeterDisplay* display : this->displays)
         {
-            currentValue = abs(map(currentValue, lowPass, this->measurer->ANALOG_READ_MAX_VALUE, 0, maxWidth));
+            for (int16_t& currentValue : this->currentValues)
+            {
+                currentValue = abs(map(
+                    currentValue, 
+                    this->settings->lowPass, 
+                    this->measurer->ANALOG_READ_MAX_VALUE, 
+                    0, 
+                    display->GetMaxColumnLength()));
+            }
+
+            if (this->settings->mono)
+            {
+                int16_t maxValue = max(this->currentValues[0], this->currentValues[1]);
+                this->currentValues[0] = maxValue;
+                this->currentValues[1] = maxValue;
+            }
+
+            display->Display(this->currentValues[0], this->currentValues[1]);
         }
+    }
 
-        // display->Clear();
-
-        display->DrawRectangle(Display::Point { .x = 5, .y = 0 }, Display::Point { .x = 6, .y = this->currentValues[0] });
-        display->DrawRectangle(Display::Point { .x = 1, .y = 0 }, Display::Point { .x = 2, .y = this->currentValues[1] });
-
-        // display->FlushBuffer();
+    void VuMeter::AddDisplay(IVuMeterDisplay* display)
+    {
+        this->displays.push_back(display);
     }
 
     VuMeter::~VuMeter()
     {
-        if (this->measurer != nullptr)
-        {
-            delete this->measurer;
-        }
     }
 }
