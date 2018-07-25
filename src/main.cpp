@@ -3,7 +3,7 @@
 
 using namespace MuzicAnalyser;
 
-App::HardwareSettings settings 
+static App::HardwareSettings settings 
 { 
     .leftChannel = A1, 
     .rightChannel = A2,
@@ -13,14 +13,14 @@ App::HardwareSettings settings
     .pinCs = 10
 };
 
-VuMeter::VuMeterSettings vuMeterSettings
+static VuMeter::VuMeterSettings vuMeterSettings
 {
     .numberOfMeasures = 100,
     .lowPass = 20,
     .mono = false
 };
 
-App* app;
+static App* app;
 
 void setup() 
 {
