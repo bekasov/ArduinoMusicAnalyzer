@@ -21,10 +21,12 @@ namespace MuzicAnalyser
             uint8_t leftChannel;
             uint8_t rightChannel;
 
-            byte brightness;
-            byte verticalDisplays;
-            byte horizontalDisplays;
-            byte pinCs;
+            uint8_t brightness;
+            uint8_t verticalDisplays;
+            uint8_t horizontalDisplays;
+            uint8_t pinCs;
+            bool useExternalAsDacBase;
+            bool expandAdcRange;
         };
 
     private: 
@@ -40,7 +42,7 @@ namespace MuzicAnalyser
 
         App() {}
 
-        void ExtendAdcRange();
+        void ExpandAdcRange();
         
     public:
 

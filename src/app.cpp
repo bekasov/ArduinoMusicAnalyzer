@@ -10,8 +10,11 @@ namespace MuzicAnalyser
 
     void App::Setup(HardwareSettings* settings, VuMeter::VuMeterSettings* vuMeterSettings)
     {
-        analogReference(INTERNAL);
-        this->ExtendAdcRange();
+        analogReference(settings->useExternalAsDacBase ? EXTERNAL : INTERNAL);
+        if (settings->expandAdcRange)
+        {
+            this->ExpandAdcRange();
+        }
 
         std::vector<uint8_t> analogInputs = { settings->leftChannel, settings->rightChannel };
         this->analogReader = new BatchAnalogReader(analogInputs);
@@ -28,7 +31,7 @@ namespace MuzicAnalyser
         this->vuMeter->MeasureAndDraw();
     }
 
-    void App::ExtendAdcRange()
+    void App::ExpandAdcRange()
     {
         sbi(ADCSRA, ADPS2);
         cbi(ADCSRA, ADPS1);

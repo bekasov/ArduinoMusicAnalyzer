@@ -10,7 +10,9 @@ static App::HardwareSettings settings
     .brightness = 4,
     .verticalDisplays = 1,
     .horizontalDisplays = 1,
-    .pinCs = 10
+    .pinCs = 10,
+    .useExternalAsDacBase = true,
+    .expandAdcRange = true
 };
 
 static VuMeter::VuMeterSettings vuMeterSettings
