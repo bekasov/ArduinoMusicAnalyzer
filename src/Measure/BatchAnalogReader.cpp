@@ -9,8 +9,8 @@ namespace MuzicAnalyser { namespace Measure
         {
             for (uint8_t inputNum = 0; inputNum < dataBuffer->channelsNumber; inputNum++)
             {
-                int currentValue = analogRead(this->analogInputs[inputNum]);
-                dataBuffer->GetChannelData(dataBuffer->GetChannelNameByNumber(inputNum))[measureNum] = (uint16_t)abs(currentValue);
+                int16_t currentValue = analogRead(this->analogInputs[inputNum]) - dataBuffer->offset;
+                dataBuffer->GetChannelData(dataBuffer->GetChannelNameByNumber(inputNum))[measureNum] = currentValue;
             }
         }
     }

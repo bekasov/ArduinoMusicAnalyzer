@@ -148,6 +148,7 @@ extern const int16_t __attribute__((used)) _cas_constants[] PROGMEM = {
 
 
 int __attribute__((used)) fht_input[(FHT_N)]; // FHT input data buffer
+// int* __attribute__((used)) fht_input; // FHT input data buffer
 
 
 static inline void fht_run(void) {

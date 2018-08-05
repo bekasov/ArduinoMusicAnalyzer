@@ -21,7 +21,7 @@ namespace MuzicAnalyser
             uint16_t currentMaxValue = 0;
             for (uint16_t valueNumber = 0; valueNumber < data->numberOfMeasures; valueNumber++)
             {
-                int16_t currentValue = data->data[channel][valueNumber] - data->offset;
+                int16_t currentValue = data->data[channel][valueNumber];
                 currentMaxValue = max((uint16_t)abs(currentValue), currentMaxValue);
             }
             currentValues[channel] = currentMaxValue;

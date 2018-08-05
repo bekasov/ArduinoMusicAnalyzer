@@ -12,7 +12,7 @@ static App::HardwareSettings settings
     .pinCs = 10,
     .adcMaxOutValue = 1023,
     .adcOffset = 1023 / 2,
-    .numberOfMeasures = 100,
+    .numberOfMeasures = 128,
     .useExternalAsDacBase = true,
     .expandAdcRange = false,
     .inputsHaveHalfUpOffset = true

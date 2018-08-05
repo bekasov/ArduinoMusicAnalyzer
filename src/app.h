@@ -6,6 +6,7 @@
 #include "Display/IVuMeterDisplay.h"
 #include "Measure/BatchAnalogReader.h"
 #include "Measure/DataBuffer.h"
+#include "Calculation/Fft/IFftWrapper.h"
 #include "VuMeter.h"
 
 
@@ -13,6 +14,7 @@ namespace MuzicAnalyser
 {
     using namespace Display;
     using namespace Measure;
+    using namespace Calculation::Fft;
 
     class App final 
     {
@@ -46,6 +48,7 @@ namespace MuzicAnalyser
 
         BatchAnalogReader* analogReader;
         VuMeter* vuMeter;
+        IFftWrapper* fft;
 
         App() {}
 

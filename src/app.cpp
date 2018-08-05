@@ -3,6 +3,7 @@
 
 #include "app.h"
 #include "Display/Max72xxVuMeterDisplay.h"
+#include "Calculation/Fft/FhtWrapper.h"
 
 namespace MuzicAnalyser 
 {
@@ -26,11 +27,28 @@ namespace MuzicAnalyser
         this->max72xxVuDisplay = new Max72xxVuMeterDisplay(this->max72xxPanel, settings->brightness);
 
         this->vuMeter->AddDisplay(this->max72xxVuDisplay);
+
+        this->fft = new FhtWrapper();
+
+        Serial.begin(9600);
     }
 
     void App::Run()
     {
         this->analogReader->FillData(this->dataBuffer);
+
+        int16_t* const data = this->dataBuffer->GetChannelData(DataBuffer::Channel::LEFT);
+        uint8_t* out;
+        this->fft->CalculateFft(data, out);
+        Serial.println("-------------------------");
+        Serial.println(out[0]);
+        Serial.println(out[1]);
+        Serial.println(out[2]);
+        Serial.println(out[3]);
+        Serial.println(out[4]);
+        Serial.println(out[5]);
+        Serial.println(out[6]);
+        Serial.println("-------------------------");
 
         this->vuMeter->Draw(this->dataBuffer);
     }

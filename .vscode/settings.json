@@ -27,6 +27,8 @@
         "sstream": "cpp",
         "map": "cpp",
         "memory": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "istream": "cpp",
+        "ostream": "cpp"
     }
 }

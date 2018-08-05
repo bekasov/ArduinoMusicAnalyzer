@@ -8,19 +8,19 @@ namespace MuzicAnalyser { namespace Measure
         this->offset = offset;
         this->channelsNumber = channelsNumber;
 
-        this->data = new uint16_t*[this->channelsNumber];
+        this->data = new int16_t*[this->channelsNumber];
         for (uint8_t channelNumber = 0; channelNumber < this->channelsNumber; ++channelNumber)
         {
-            this->data[channelNumber] = new uint16_t[this->numberOfMeasures];
+            this->data[channelNumber] = new int16_t[this->numberOfMeasures];
         }
     }
 
-    uint16_t*& DataBuffer::GetChannelData(Channel channel)
+    int16_t*& DataBuffer::GetChannelData(Channel channel)
     {
         return this->data[static_cast<uint8_t>(channel)];
     }
 
-    DataBuffer::Channel DataBuffer::GetChannelNameByNumber(uint16_t channelNumber)
+    DataBuffer::Channel DataBuffer::GetChannelNameByNumber(uint8_t channelNumber)
     {
         return static_cast<DataBuffer::Channel>(channelNumber);
     }
