@@ -25,6 +25,8 @@
         "complex": "cpp",
         "bitset": "cpp",
         "sstream": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "memory": "cpp",
+        "string": "cpp"
     }
 }

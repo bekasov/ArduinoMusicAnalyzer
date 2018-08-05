@@ -4,15 +4,14 @@
 #include <vector>
 #include <wiring_private.h>
 
+#include "DataBuffer.h"
+
 namespace MuzicAnalyser { namespace Measure 
 {
     using namespace std;
 
     class BatchAnalogReader final
     {
-    public:
-        static const uint32_t ANALOG_READ_MAX_VALUE = 1023;
-
     private:
         vector<uint8_t> analogInputs;
 
@@ -22,6 +21,6 @@ namespace MuzicAnalyser { namespace Measure
             this->analogInputs = analogInputs;
         }
 
-        vector<int16_t> GetMaxForPeriod(uint16_t numberOfMeasures);
+        void FillData(DataBuffer* const dataBuffer);
     };
 } }

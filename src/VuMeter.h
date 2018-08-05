@@ -5,6 +5,7 @@
 
 #include "Display/IVuMeterDisplay.h"
 #include "Measure/BatchAnalogReader.h"
+#include "Measure/DataBuffer.h"
 
 namespace MuzicAnalyser
 {
@@ -16,7 +17,6 @@ namespace MuzicAnalyser
     public:
         struct VuMeterSettings
         {
-            uint16_t numberOfMeasures;
             uint16_t lowPass;
             bool mono;
         };
@@ -25,11 +25,10 @@ namespace MuzicAnalyser
         ~VuMeter();
 
         void AddDisplay(IVuMeterDisplay* display);
-        void MeasureAndDraw();
+        void Draw(DataBuffer* const data);
 
     private: 
         BatchAnalogReader* measurer;
-        vector<int16_t> currentValues;
         VuMeterSettings* settings;
         vector<IVuMeterDisplay*> displays;
     };

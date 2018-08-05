@@ -11,30 +11,44 @@ namespace MuzicAnalyser
         this->settings = settings;
     }
 
-    void VuMeter::MeasureAndDraw()
+    void VuMeter::Draw(DataBuffer* const data)
     {
-        this->currentValues = this->measurer->GetMaxForPeriod(this->settings->numberOfMeasures);
+        const uint8_t CHANNELS_NUMBER = 2;
+        uint16_t currentValues[CHANNELS_NUMBER];
 
-        for (IVuMeterDisplay* display : this->displays)
+        for (uint8_t channel = 0; channel < CHANNELS_NUMBER; channel++)
         {
-            for (int16_t& currentValue : this->currentValues)
+            uint16_t currentMaxValue = 0;
+            for (uint16_t valueNumber = 0; valueNumber < data->numberOfMeasures; valueNumber++)
             {
-                currentValue = abs(map(
-                    currentValue, 
+                int16_t currentValue = data->data[channel][valueNumber] - data->offset;
+                currentMaxValue = max((uint16_t)abs(currentValue), currentMaxValue);
+            }
+            currentValues[channel] = currentMaxValue;
+        }
+
+        for (IVuMeterDisplay* const display : this->displays)
+        {
+            uint16_t currentDisplayValues[CHANNELS_NUMBER];
+
+            for (uint8_t channel = 0; channel < CHANNELS_NUMBER; channel++)
+            {
+                currentDisplayValues[channel] = abs(map(
+                    currentValues[channel], 
                     this->settings->lowPass, 
-                    this->measurer->ANALOG_READ_MAX_VALUE, 
+                    data->offset, 
                     0, 
                     display->GetMaxColumnLength()));
             }
 
             if (this->settings->mono)
             {
-                int16_t maxValue = max(this->currentValues[0], this->currentValues[1]);
-                this->currentValues[0] = maxValue;
-                this->currentValues[1] = maxValue;
+                uint16_t maxValue = max(currentDisplayValues[0], currentDisplayValues[1]);
+                currentDisplayValues[0] = maxValue;
+                currentDisplayValues[1] = maxValue;
             }
 
-            display->Display(this->currentValues[0], this->currentValues[1]);
+            display->Display(currentDisplayValues[0], currentDisplayValues[1]);
         }
     }
 

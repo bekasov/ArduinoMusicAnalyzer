@@ -3,21 +3,15 @@
 
 namespace MuzicAnalyser { namespace Measure 
 {
-    vector<int16_t> BatchAnalogReader::GetMaxForPeriod(uint16_t numberOfMeasures)
+    void BatchAnalogReader::FillData(DataBuffer* const dataBuffer)
     {
-        vector<int16_t> result;
-        
-        int16_t maxValue = 0;
-        for (uint16_t i = 0; i < numberOfMeasures; i++)
+        for (uint16_t measureNum = 0; measureNum < dataBuffer->numberOfMeasures; measureNum++)
         {
-            for (const uint8_t& analogInput : this->analogInputs)
+            for (uint8_t inputNum = 0; inputNum < dataBuffer->channelsNumber; inputNum++)
             {
-                maxValue = max(analogRead(analogInput), maxValue);
+                int currentValue = analogRead(this->analogInputs[inputNum]);
+                dataBuffer->GetChannelData(dataBuffer->GetChannelNameByNumber(inputNum))[measureNum] = (uint16_t)abs(currentValue);
             }
-
-            result.push_back(maxValue);
         }
-        
-        return result;
     }
 } }

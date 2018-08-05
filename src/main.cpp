@@ -1,5 +1,3 @@
-#include <Arduino.h>
-#include <fix_fft.h>
 #include "app.h"
 
 using namespace MuzicAnalyser;
@@ -12,13 +10,16 @@ static App::HardwareSettings settings
     .verticalDisplays = 1,
     .horizontalDisplays = 1,
     .pinCs = 10,
+    .adcMaxOutValue = 1023,
+    .adcOffset = 1023 / 2,
+    .numberOfMeasures = 100,
     .useExternalAsDacBase = true,
-    .expandAdcRange = true
+    .expandAdcRange = false,
+    .inputsHaveHalfUpOffset = true
 };
 
 static VuMeter::VuMeterSettings vuMeterSettings
 {
-    .numberOfMeasures = 100,
     .lowPass = 20,
     .mono = false
 };

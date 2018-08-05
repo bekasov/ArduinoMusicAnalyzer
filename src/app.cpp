@@ -19,6 +19,8 @@ namespace MuzicAnalyser
         std::vector<uint8_t> analogInputs = { settings->leftChannel, settings->rightChannel };
         this->analogReader = new BatchAnalogReader(analogInputs);
 
+        this->dataBuffer = new DataBuffer(settings->numberOfMeasures, analogInputs.size(), settings->adcOffset);
+
         this->vuMeter = new VuMeter(this->analogReader, vuMeterSettings);
         this->max72xxPanel = new Max72xxPanel(settings->pinCs, settings->horizontalDisplays, settings->verticalDisplays);
         this->max72xxVuDisplay = new Max72xxVuMeterDisplay(this->max72xxPanel, settings->brightness);
@@ -28,7 +30,9 @@ namespace MuzicAnalyser
 
     void App::Run()
     {
-        this->vuMeter->MeasureAndDraw();
+        this->analogReader->FillData(this->dataBuffer);
+
+        this->vuMeter->Draw(this->dataBuffer);
     }
 
     void App::ExpandAdcRange()
