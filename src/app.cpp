@@ -37,18 +37,18 @@ namespace MuzicAnalyser
     {
         this->analogReader->FillData(this->dataBuffer);
 
-        int16_t* const data = this->dataBuffer->GetChannelData(DataBuffer::Channel::LEFT);
-        uint8_t* out;
-        this->fft->CalculateFft(data, out);
-        Serial.println("-------------------------");
-        Serial.println(out[0]);
-        Serial.println(out[1]);
-        Serial.println(out[2]);
-        Serial.println(out[3]);
-        Serial.println(out[4]);
-        Serial.println(out[5]);
-        Serial.println(out[6]);
-        Serial.println("-------------------------");
+        // int16_t* const data = this->dataBuffer->GetChannelData(DataBuffer::Channel::LEFT);
+        // uint8_t* out;
+        // this->fft->CalculateFft(data, out);
+        // Serial.println("-------------------------");
+        // Serial.println(out[0]);
+        // Serial.println(out[1]);
+        // Serial.println(out[2]);
+        // Serial.println(out[3]);
+        // Serial.println(out[4]);
+        // Serial.println(out[5]);
+        // Serial.println(out[6]);
+        // Serial.println("-------------------------");
 
         this->vuMeter->Draw(this->dataBuffer);
     }
