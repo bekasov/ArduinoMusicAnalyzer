@@ -1,6 +1,6 @@
 [submodule "lib/StandardCplusplus"]
 	path = lib/StandardCplusplus
-	url = git@github.com:bekasov/StandardCplusplus.git
+	url = git@github.com:bekasov/Cloned.StandardCplusplus.git
 [submodule "lib/FixFft"]
 	path = lib/FixFft
-	url = git@github.com:bekasov/FixFft.git
+	url = git@github.com:bekasov/Cloned.FixFft.git
