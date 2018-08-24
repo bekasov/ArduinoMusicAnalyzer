@@ -4,3 +4,6 @@
 [submodule "lib/FixFft"]
 	path = lib/FixFft
 	url = git@github.com:bekasov/Cloned.FixFft.git
+[submodule "lib/LCD5110_Graph"]
+	path = lib/LCD5110_Graph
+	url = git@github.com:bekasov/Cloned.LCD5110_Graph.git
