@@ -24,7 +24,7 @@ namespace MuzicAnalyser { namespace Display
 
     uint16_t Max72xxVuMeterDisplay::GetMaxColumnLength()
     { 
-        return this->display->width(); 
+        return this->display->height(); 
     }
 
     void Max72xxVuMeterDisplay::SetBrightness(uint8_t brightness)

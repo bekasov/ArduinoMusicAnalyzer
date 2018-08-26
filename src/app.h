@@ -1,5 +1,8 @@
 #pragma once
 
+#include <Arduino.h>
+#include <LCD5110_Graph.h>
+
 #include <Adafruit_GFX.h>
 #include <Max72xxPanel.h>
 
@@ -23,19 +26,21 @@ namespace MuzicAnalyser
         {
             uint8_t leftChannel;
             uint8_t rightChannel;
-
             uint8_t brightness;
             uint8_t verticalDisplays;
             uint8_t horizontalDisplays;
             uint8_t pinCs;
             uint16_t adcMaxOutValue;
             uint16_t adcOffset;
-
             uint16_t numberOfMeasures;
-
             bool useExternalAsDacBase;
             bool expandAdcRange;
             bool inputsHaveHalfUpOffset;
+            uint8_t nokia5110Sck;
+            uint8_t nokia5110Mosi;
+            uint8_t nokia5110Dc;
+            uint8_t nokia5110Cs;
+            uint8_t nokia5110Rst;
         };
 
     private: 
@@ -45,6 +50,9 @@ namespace MuzicAnalyser
 
         Max72xxPanel* max72xxPanel;
         IVuMeterDisplay* max72xxVuDisplay;
+
+        LCD5110* nokiaPanel;
+        IVuMeterDisplay* nokiaVuDisplay;
 
         BatchAnalogReader* analogReader;
         VuMeter* vuMeter;

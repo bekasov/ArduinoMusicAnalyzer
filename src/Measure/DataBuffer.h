@@ -8,12 +8,12 @@ namespace MuzicAnalyser { namespace Measure
     {
         enum Channel
         {
-            LEFT = 0,
-            RIGHT = 1,
-            REAR_LEFT = 2,
-            REAR_RIGHT = 3,
-            CENTER = 5,
-            SUBWOOFER = 6
+            CH_LEFT = 0,
+            CH_RIGHT = 1,
+            CH_REAR_LEFT = 2,
+            CH_REAR_RIGHT = 3,
+            CH_CENTER = 5,
+            CH_SUBWOOFER = 6
         };
 
         DataBuffer(const uint16_t& numberOfMeasures, const uint8_t& channelsNumber, const uint16_t& offset);

@@ -3,7 +3,10 @@
 
 #include "app.h"
 #include "Display/Max72xxVuMeterDisplay.h"
+#include "Display/Nokia5110VuMeter.h"
 #include "Calculation/Fft/FhtWrapper.h"
+
+extern uint8_t SmallFont[];
 
 namespace MuzicAnalyser 
 {
@@ -26,18 +29,30 @@ namespace MuzicAnalyser
         this->max72xxPanel = new Max72xxPanel(settings->pinCs, settings->horizontalDisplays, settings->verticalDisplays);
         this->max72xxVuDisplay = new Max72xxVuMeterDisplay(this->max72xxPanel, settings->brightness);
 
+        this->nokiaPanel = new LCD5110(
+            settings->nokia5110Sck, 
+            settings->nokia5110Mosi, 
+            settings->nokia5110Dc,
+            settings->nokia5110Rst, 
+            settings->nokia5110Cs);
+
+        this->nokiaVuDisplay = new Nokia5110VuMeter(this->nokiaPanel);
+
+        // this->fft = new FhtWrapper();
+        // Serial.begin(9600);
+
+        this->nokiaPanel->InitLCD();
+        this->nokiaPanel->setFont(SmallFont);
+
         this->vuMeter->AddDisplay(this->max72xxVuDisplay);
-
-        this->fft = new FhtWrapper();
-
-        Serial.begin(9600);
+        this->vuMeter->AddDisplay(this->nokiaVuDisplay);
     }
 
     void App::Run()
     {
         this->analogReader->FillData(this->dataBuffer);
 
-        // int16_t* const data = this->dataBuffer->GetChannelData(DataBuffer::Channel::LEFT);
+        //int16_t* const data = this->dataBuffer->GetChannelData(DataBuffer::Channel::LEFT);
         // uint8_t* out;
         // this->fft->CalculateFft(data, out);
         // Serial.println("-------------------------");
@@ -51,13 +66,15 @@ namespace MuzicAnalyser
         // Serial.println("-------------------------");
 
         this->vuMeter->Draw(this->dataBuffer);
+
+        this->nokiaPanel->update();
     }
 
     void App::ExpandAdcRange()
     {
-        sbi(ADCSRA, ADPS2);
-        cbi(ADCSRA, ADPS1);
-        sbi(ADCSRA, ADPS0);
+        // sbi(ADCSRA, ADPS2);
+        // cbi(ADCSRA, ADPS1);
+        // sbi(ADCSRA, ADPS0);
     }
 
     App::~App()

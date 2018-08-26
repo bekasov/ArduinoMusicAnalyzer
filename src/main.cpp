@@ -7,7 +7,7 @@ static App::HardwareSettings settings
     .leftChannel = A1, 
     .rightChannel = A2,
     .brightness = 4,
-    .verticalDisplays = 1,
+    .verticalDisplays = 4,
     .horizontalDisplays = 1,
     .pinCs = 10,
     .adcMaxOutValue = 1023,
@@ -15,7 +15,12 @@ static App::HardwareSettings settings
     .numberOfMeasures = 64,
     .useExternalAsDacBase = true,
     .expandAdcRange = false,
-    .inputsHaveHalfUpOffset = true
+    .inputsHaveHalfUpOffset = true,
+    .nokia5110Sck = 6,
+    .nokia5110Mosi = 5,
+    .nokia5110Dc = 4,
+    .nokia5110Cs = 3,
+    .nokia5110Rst = 2
 };
 
 static VuMeter::VuMeterSettings vuMeterSettings
