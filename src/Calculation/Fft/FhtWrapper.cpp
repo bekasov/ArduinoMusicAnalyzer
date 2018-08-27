@@ -1,10 +1,11 @@
 #include "FhtWrapper.h"
 
 #define LOG_OUT 1 // use the log output function
-#define FHT_N 128 // set to 256 point fht
+// #define FHT_N 128 // set to 256 point fht
 
 #include <FHT.h> // include the library
 
+// extern int fht_input[(FHT_N)];
 
 namespace Calculation { namespace Fft 
 {

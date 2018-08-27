@@ -7,3 +7,12 @@
 [submodule "lib/LCD5110_Graph"]
 	path = lib/LCD5110_Graph
 	url = git@github.com:bekasov/Cloned.LCD5110_Graph.git
+[submodule "lib/AdafruitGfxLibrary"]
+	path = lib/AdafruitGfxLibrary
+	url = git@github.com:bekasov/Cloned.Adafruit-GFX-Library.git
+[submodule "lib/ArduinoMax72xxPanel"]
+	path = lib/ArduinoMax72xxPanel
+	url = git@github.com:bekasov/Cloned.arduino-Max72xxPanel.git
+[submodule "lib/ArduinoFHT"]
+	path = lib/ArduinoFHT
+	url = git@github.com:bekasov/Cloned.ArduinoFHT.git

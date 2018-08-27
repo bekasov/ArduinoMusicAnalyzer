@@ -1,5 +1,11 @@
 #include "app.h"
 
+// #define FHT_N 128 // set to 256 point fht
+
+// #include <FHT.h> // include the library
+
+// extern int __attribute__((used)) fht_input[(FHT_N)];
+
 using namespace MuzicAnalyser;
 
 static App::HardwareSettings settings 
@@ -35,6 +41,16 @@ void setup()
 {
     app = App::GetInstance();
     app->Setup(&settings, &vuMeterSettings);
+
+    // uint8_t channelsNumber = 2;
+    // uint16_t numberOfMeasures = FHT_N;
+
+    // int16_t** data = new int16_t*[channelsNumber];
+
+    // data[0] = fht_input;
+    // data[1] = new int16_t[numberOfMeasures];
+
+
 }
 
 void loop() 
