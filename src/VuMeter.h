@@ -17,7 +17,7 @@ namespace MuzicAnalyser
     public:
         struct VuMeterSettings
         {
-            uint16_t lowPass;
+            uint8_t lowPass;
             bool mono;
         };
 

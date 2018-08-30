@@ -16,13 +16,14 @@ namespace MuzicAnalyser { namespace Measure
             CH_SUBWOOFER = 6
         };
 
-        DataBuffer(const uint16_t& numberOfMeasures, const uint8_t& channelsNumber, const uint16_t& offset);
+        DataBuffer(const uint16_t& numberOfMeasures, const uint8_t& channelsNumber, const uint16_t& offset, int16_t* sumDataBuffer);
         ~DataBuffer();
 
-        int16_t*& GetChannelData(Channel channel);
+        inline int16_t*& GetChannelData(Channel channel);
         Channel GetChannelNameByNumber(uint8_t channelNumber);
 
         int16_t** data;
+        int16_t* sumDataBuffer;
 
         uint16_t numberOfMeasures;
         uint8_t channelsNumber;

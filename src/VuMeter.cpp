@@ -30,15 +30,21 @@ namespace MuzicAnalyser
         for (IVuMeterDisplay* const display : this->displays)
         {
             uint16_t currentDisplayValues[CHANNELS_NUMBER];
+            uint16_t currentDisplayMaxLevel = display->GetMaxColumnLength();
 
-            for (uint8_t channel = 0; channel < CHANNELS_NUMBER; channel++)
+            for (uint8_t channel = 0; channel < CHANNELS_NUMBER; ++channel)
             {
-                currentDisplayValues[channel] = abs(map(
+                currentDisplayValues[channel] = map(
                     currentValues[channel], 
                     this->settings->lowPass, 
                     data->offset, 
                     0, 
-                    display->GetMaxColumnLength()));
+                    currentDisplayMaxLevel);
+                
+                if (currentDisplayValues[channel] < 0) 
+                {
+                    currentDisplayValues[channel] = 0;
+                }
             }
 
             if (this->settings->mono)

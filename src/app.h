@@ -7,11 +7,13 @@
 #include <Max72xxPanel.h>
 
 #include "Display/IVuMeterDisplay.h"
+#include "Display/Nokia5110FftDisplay.h"
 #include "Measure/BatchAnalogReader.h"
 #include "Measure/DataBuffer.h"
 #include "Calculation/Fft/IFftWrapper.h"
 #include "VuMeter.h"
 
+#define FHT_N 64
 
 namespace MuzicAnalyser 
 {
@@ -50,10 +52,9 @@ namespace MuzicAnalyser
 
         Max72xxPanel* max72xxPanel;
         IVuMeterDisplay* max72xxVuDisplay;
-
-        LCD5110* nokiaPanel;
         IVuMeterDisplay* nokiaVuDisplay;
-
+        Nokia5110FftDisplay* fftDisplay;
+        
         BatchAnalogReader* analogReader;
         VuMeter* vuMeter;
         IFftWrapper* fft;
@@ -64,7 +65,7 @@ namespace MuzicAnalyser
         
     public:
 
-        ~App();
+        LCD5110* nokiaPanel;
 
         static App* GetInstance()
         {
@@ -78,5 +79,7 @@ namespace MuzicAnalyser
 
         void Setup(HardwareSettings* hardwareSettings, VuMeter::VuMeterSettings* vuMeterSettings);
         void Run();
+
+        ~App();
     };
 }

@@ -1,10 +1,10 @@
 #include "app.h"
 
-// #define FHT_N 128 // set to 256 point fht
+
 
 // #include <FHT.h> // include the library
 
-// extern int __attribute__((used)) fht_input[(FHT_N)];
+// int __attribute__((used)) fht_input[(FHT_N)];
 
 using namespace MuzicAnalyser;
 
@@ -18,9 +18,9 @@ static App::HardwareSettings settings
     .pinCs = 10,
     .adcMaxOutValue = 1023,
     .adcOffset = 1023 / 2,
-    .numberOfMeasures = 64,
+    .numberOfMeasures = FHT_N,
     .useExternalAsDacBase = true,
-    .expandAdcRange = false,
+    .expandAdcRange = true,
     .inputsHaveHalfUpOffset = true,
     .nokia5110Sck = 6,
     .nokia5110Mosi = 5,
@@ -31,7 +31,7 @@ static App::HardwareSettings settings
 
 static VuMeter::VuMeterSettings vuMeterSettings
 {
-    .lowPass = 20,
+    .lowPass = 40,
     .mono = false
 };
 
@@ -41,16 +41,6 @@ void setup()
 {
     app = App::GetInstance();
     app->Setup(&settings, &vuMeterSettings);
-
-    // uint8_t channelsNumber = 2;
-    // uint16_t numberOfMeasures = FHT_N;
-
-    // int16_t** data = new int16_t*[channelsNumber];
-
-    // data[0] = fht_input;
-    // data[1] = new int16_t[numberOfMeasures];
-
-
 }
 
 void loop() 

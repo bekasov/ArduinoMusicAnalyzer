@@ -8,8 +8,6 @@ namespace MuzicAnalyser { namespace Display
         this->display = display;
         this->previousLeft = 0;
         this->previousRight = 0;
-        // myGLCD.InitLCD();
-        // myGLCD.setFont(SmallFont);
     }
 
     void Nokia5110VuMeter::Display(uint16_t leftChannelCurrent, uint16_t rightChannelCurrent)
@@ -19,15 +17,15 @@ namespace MuzicAnalyser { namespace Display
             return;
         }
 
-        uint8_t leftLevelX = 77, rightLevelX = 81;
-        uint8_t levelY = 47;
+        uint8_t leftLevelY = 0, rightLevelY = 3;
+        uint8_t levelX = 0;
         uint8_t levelWidth = 1;
 
-        this->display->clrRect(leftLevelX, levelY, leftLevelX + levelWidth, levelY - this->previousLeft);
-        this->display->clrRect(rightLevelX, levelY, rightLevelX + levelWidth, levelY - this->previousRight);
+        this->display->clrRect(levelX, leftLevelY, levelX + this->previousLeft, leftLevelY + levelWidth);
+        this->display->clrRect(levelX, rightLevelY, levelX + this->previousLeft, rightLevelY + levelWidth);
 
-        this->display->drawRect(leftLevelX, levelY, leftLevelX + levelWidth, levelY - leftChannelCurrent);
-        this->display->drawRect(rightLevelX, levelY, rightLevelX + levelWidth, levelY - rightChannelCurrent);
+        this->display->drawRect(levelX, leftLevelY, levelX + leftChannelCurrent, leftLevelY + levelWidth);
+        this->display->drawRect(levelX, rightLevelY, levelX + rightChannelCurrent, rightLevelY + levelWidth);
 		
         this->previousLeft = leftChannelCurrent;
         this->previousRight = rightChannelCurrent;
@@ -35,7 +33,7 @@ namespace MuzicAnalyser { namespace Display
 
     uint16_t Nokia5110VuMeter::GetMaxColumnLength()
     { 
-        return 48; 
+        return 84;//48; 
     }
 
     void Nokia5110VuMeter::SetBrightness(uint8_t brightness)

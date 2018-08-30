@@ -1,12 +1,14 @@
 #include "DataBuffer.h"
+#include "../app.h"
 
 namespace MuzicAnalyser { namespace Measure 
 {
-    DataBuffer::DataBuffer(const uint16_t& numberOfMeasures, const uint8_t& channelsNumber, const uint16_t& offset)
+    DataBuffer::DataBuffer(const uint16_t& numberOfMeasures, const uint8_t& channelsNumber, const uint16_t& offset, int16_t* sumDataBuffer)
     {
         this->numberOfMeasures = numberOfMeasures;
         this->offset = offset;
         this->channelsNumber = channelsNumber;
+        this->sumDataBuffer = sumDataBuffer;
 
         this->data = new int16_t*[this->channelsNumber];
         for (uint8_t channelNumber = 0; channelNumber < this->channelsNumber; ++channelNumber)
