@@ -77,9 +77,13 @@ namespace MuzicAnalyser
             return App::instance;
         }
 
-        void Setup(HardwareSettings* hardwareSettings, VuMeter::VuMeterSettings* vuMeterSettings);
+        void Setup(
+            HardwareSettings* hardwareSettings, 
+            VuMeter::VuMeterSettings* vuMeterSettings, 
+            Nokia5110FftDisplay::FftMeterSettings* fftSettings);
+
         void Run();
 
-        ~App();
+        ~App() = default;
     };
 }

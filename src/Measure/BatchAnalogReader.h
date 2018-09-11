@@ -1,10 +1,10 @@
 #pragma once
-
 #include <Arduino.h>
 #include <vector>
 #include <wiring_private.h>
 
 #include "DataBuffer.h"
+
 
 namespace MuzicAnalyser { namespace Measure 
 {

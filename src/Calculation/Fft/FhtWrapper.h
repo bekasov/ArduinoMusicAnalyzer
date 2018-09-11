@@ -1,6 +1,6 @@
 #pragma once
-
 #include "IFftWrapper.h"
+
 
 namespace Calculation { namespace Fft 
 {

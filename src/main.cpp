@@ -1,11 +1,6 @@
 #include "app.h"
 
 
-
-// #include <FHT.h> // include the library
-
-// int __attribute__((used)) fht_input[(FHT_N)];
-
 using namespace MuzicAnalyser;
 
 static App::HardwareSettings settings 
@@ -31,8 +26,16 @@ static App::HardwareSettings settings
 
 static VuMeter::VuMeterSettings vuMeterSettings
 {
-    .lowPass = 40,
+    .lowPass = 20,
     .mono = false
+};
+
+static Nokia5110FftDisplay::FftMeterSettings fftSettings
+{
+    .lowPass = 40,
+    .maxCalculatedMagnitude = 128,
+    .maxBinsCount = FHT_N / 2,
+    .delayCycles = 3
 };
 
 static App* app;
@@ -40,7 +43,7 @@ static App* app;
 void setup() 
 {
     app = App::GetInstance();
-    app->Setup(&settings, &vuMeterSettings);
+    app->Setup(&settings, &vuMeterSettings, &fftSettings);
 }
 
 void loop() 

@@ -6,6 +6,9 @@
 #include "Display/Nokia5110VuMeter.h"
 #include "Calculation/Fft/FhtWrapper.h"
 
+#define cbi_my(sfr, bit) (_SFR_BYTE(sfr) &= ~_BV(bit))
+#define sbi_my(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
+
 extern uint8_t SmallFont[];
 int __attribute__((used)) fht_input[(FHT_N)];
 
@@ -13,7 +16,10 @@ namespace MuzicAnalyser
 {
     App* App::instance;
 
-    void App::Setup(HardwareSettings* settings, VuMeter::VuMeterSettings* vuMeterSettings)
+    void App::Setup(
+        HardwareSettings* settings, 
+        VuMeter::VuMeterSettings* vuMeterSettings, 
+        Nokia5110FftDisplay::FftMeterSettings* fftSettings)
     {
         analogReference(settings->useExternalAsDacBase ? EXTERNAL : INTERNAL);
         if (settings->expandAdcRange)
@@ -46,16 +52,16 @@ namespace MuzicAnalyser
         this->vuMeter->AddDisplay(this->nokiaVuDisplay);
 
         this->fft = new FhtWrapper();
-        this->fftDisplay = new Nokia5110FftDisplay(this->nokiaPanel, vuMeterSettings->lowPass);
+        this->fftDisplay = new Nokia5110FftDisplay(this->nokiaPanel, fftSettings);
     }
 
     void App::Run()
     {
         this->analogReader->FillData(this->dataBuffer);
+
         uint8_t* fftData = this->fft->CalculateFft(this->dataBuffer->sumDataBuffer);
-
-        this->fftDisplay->Display(fftData, this->dataBuffer->numberOfMeasures / 2);
-
+        this->fftDisplay->Display(fftData);
+        
         this->vuMeter->Draw(this->dataBuffer);
 
         this->nokiaPanel->update();
@@ -63,18 +69,8 @@ namespace MuzicAnalyser
 
     void App::ExpandAdcRange()
     {
-        uint8_t* aa;
-        aa = ADCSRA;
-        // (ADCSRA) |= ADPS2;
-        // (ADCSRA*) &= ~ADPS1;
-        // (ADCSRA*) |= ADPS0;
-        // (_SFR_BYTE(ADCSRA) &= ~_BV(ADPS2));
-        sbi(aa, ADPS2);
-        cbi(aa, ADPS1);
-        sbi(aa, ADPS0);
-    }
-
-    App::~App()
-    {
+        sbi_my(ADCSRA, ADPS2);
+        cbi_my(ADCSRA, ADPS1);
+        sbi_my(ADCSRA, ADPS0);
     }
 }

@@ -1,6 +1,7 @@
 #include "VuMeter.h"
 #include "Display/IVuMeterDisplay.h"
 
+
 namespace MuzicAnalyser
 {
     using namespace std;
@@ -61,9 +62,5 @@ namespace MuzicAnalyser
     void VuMeter::AddDisplay(IVuMeterDisplay* display)
     {
         this->displays.push_back(display);
-    }
-
-    VuMeter::~VuMeter()
-    {
     }
 }

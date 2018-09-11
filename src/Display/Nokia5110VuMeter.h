@@ -3,6 +3,7 @@
 #include <LCD5110_Graph.h>
 #include "IVuMeterDisplay.h"
 
+
 namespace MuzicAnalyser { namespace Display 
 {
     class Nokia5110VuMeter final : public IVuMeterDisplay

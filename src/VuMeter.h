@@ -1,11 +1,11 @@
 #pragma once
-
 #include <Arduino.h>
 #include <vector>
 
 #include "Display/IVuMeterDisplay.h"
 #include "Measure/BatchAnalogReader.h"
 #include "Measure/DataBuffer.h"
+
 
 namespace MuzicAnalyser
 {
@@ -22,7 +22,7 @@ namespace MuzicAnalyser
         };
 
         VuMeter(BatchAnalogReader* measurer, VuMeterSettings* settings);
-        ~VuMeter();
+        ~VuMeter() = default;
 
         void AddDisplay(IVuMeterDisplay* display);
         void Draw(DataBuffer* const data);

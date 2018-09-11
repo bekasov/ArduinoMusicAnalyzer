@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "Max72xxVuMeterDisplay.h"
 
+
 namespace MuzicAnalyser { namespace Display 
 { 
     Max72xxVuMeterDisplay::Max72xxVuMeterDisplay(Max72xxPanel* display, int8_t brightness)
@@ -30,9 +31,5 @@ namespace MuzicAnalyser { namespace Display
     void Max72xxVuMeterDisplay::SetBrightness(uint8_t brightness)
     {
         this->display->setIntensity(brightness);
-    }
-
-    Max72xxVuMeterDisplay::~Max72xxVuMeterDisplay()
-    {
     }
 } }
